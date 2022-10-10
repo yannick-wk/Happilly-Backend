@@ -1,11 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Happilly_backend.Models
+﻿namespace Happilly_backend.Models
 {
-    public class Medicine
+    public class MedicineDetailDto
     {
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
         public string Description { get; set; }
         public int Group { get; set; }

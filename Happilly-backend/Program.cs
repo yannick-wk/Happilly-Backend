@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Happilly_backend.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<HappillyContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Happilly_backendContext") ?? throw new InvalidOperationException("Connection string 'Happilly_backendContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddCors();

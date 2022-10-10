@@ -5,7 +5,7 @@ namespace Happilly_backend.Controllers
 {
     [Route("api/medicine")]
     [ApiController]
-    public class MedicineController : Controller
+    public class Medicine1Controller : Controller
     {
         public Medicine medicine = new();
         
