@@ -2,9 +2,9 @@
 {
     public class Medicine
     {
-        public int MedicineId { get; set; }
-        public string MedicineName { get; set; }
-        public string MedicineDescription { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
 
         public Medicine()
         {
@@ -13,9 +13,9 @@
 
         public Medicine(Medicine medicine)
         {
-            MedicineId = medicine.MedicineId;
-            MedicineName = medicine.MedicineName;
-            MedicineDescription = medicine.MedicineDescription;
+            Id = medicine.Id;
+            Name = medicine.Name;
+            Description = medicine.Description;
         }
     }
 }
