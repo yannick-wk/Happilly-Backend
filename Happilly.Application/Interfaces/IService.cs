@@ -25,5 +25,7 @@ namespace Happilly.Application.Interfaces
         /// <param name="pageSize">The page size.</param>
         /// <returns>Returns all paginated dtos.</returns>
         Task<IEnumerable<TDto>> GetPaginationAsync(int pageNumber, int pageSize);
+
+        Task<bool> CreateAsync(TDto dto);
     }
 }

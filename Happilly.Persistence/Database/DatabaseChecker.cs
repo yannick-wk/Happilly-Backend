@@ -63,6 +63,8 @@ namespace Happilly.Persistence.Database
                     }
                     dbContext.Database.Migrate();
                     logger.LogInformation("Applied the migrations to the database.");
+
+                    // TODO: SEED DATABASE WITH STANDARD MEDICINES....
                 }
 
                 logger.LogInformation("Finished database verification!");

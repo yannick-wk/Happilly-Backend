@@ -82,5 +82,22 @@ namespace Happilly.Persistence.Abstractions
             using EntityLoadLock.Releaser loadLock = EntityLoadLock.Shared.Lock();
             return await DbContext.Set<TEntity>().ToListAsync();
         }
+
+        public async Task<bool> CreateAsync(TEntity entity)
+        {
+            using EntityLoadLock.Releaser loadLock = EntityLoadLock.Shared.Lock();
+            DbContext.Set<TEntity>().Add(entity);
+            int changes = 0;
+            try
+            {
+                changes = await DbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+            }
+
+            return changes > 0; 
+        }
     }
 }

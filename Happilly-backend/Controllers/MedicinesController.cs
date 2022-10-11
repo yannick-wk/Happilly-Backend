@@ -10,19 +10,6 @@ using Happilly_backend.Models;
 
 namespace Happilly_backend.Controllers
 {
-
-
-    /**
-     * Medicinecontroller 
-     * -> IRepository<Medicine> (MedicineRepository) 
-     * -> HappillyDbContext
-     * 
-     * 
-     * 
-     */
-
-
-
     [Route("api/[controller]")]
     [ApiController]
     public class MedicinesController : Controller

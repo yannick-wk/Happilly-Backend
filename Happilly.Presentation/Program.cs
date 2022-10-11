@@ -10,15 +10,15 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
+#region MAPPING LAYER
 // The AutoMapper for Entities to DTOs and vice versa.
+// Medicine -> MedicineDto (automatic mapping of entities and data transfer objects)
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(MedicineProfile)));
 
 // Logging to the console..
 builder.Services.AddLogging(p => p.AddConsole());
 
-// Add the database configuration from appsettings..
+// Add the database configuration (from appsettings.json)
 builder.Services.AddOptions();
 builder.Services.Configure<DbConfiguration>(builder.Configuration.GetSection("Database").Bind);
 
@@ -36,15 +36,16 @@ builder.Services.AddTransient<IService<MedicineDto>, MedicineService>();
 
 // Verifies the database connection upon start-up!
 builder.Services.VerifyDatabaseConnection<HappillyDbContext>();
+#endregion MAPPING LAYER
 
-// Add services to the container.
-
+builder.Services.AddCors();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -58,5 +59,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(builder =>
+{
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+});
 
 app.Run();

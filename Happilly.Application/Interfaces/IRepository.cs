@@ -29,6 +29,8 @@ namespace Happilly.Application.Interfaces
         /// <returns>Returns all Entities.</returns>
         Task<IEnumerable<TEntity>> GetAllAsync();
 
+        Task<bool> CreateAsync(TEntity entity);
+
         /// <summary>
         /// Gets pagination asynchronously.
         /// </summary>

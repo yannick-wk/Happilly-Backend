@@ -25,6 +25,13 @@ namespace Happilly.Application.Abstractions
             EntityRepository = entityRepository ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        public virtual Task<bool> CreateAsync(TDto dto)
+        {
+            // #1 Map DTO -> Entity
+            TEntity entity = Mapper.Map<TEntity>(dto);
+            return EntityRepository.CreateAsync(entity);
+        }
+
         /// <inheritdoc cref="IService{TEntity}.FindSingleOrDefaultAsync(Guid)"/>
         public virtual Task<TDto> FindSingleOrDefaultAsync(Guid id)
         {
