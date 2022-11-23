@@ -27,7 +27,6 @@ namespace Happilly.Application.Abstractions
 
         public virtual Task<bool> CreateAsync(TDto dto)
         {
-            // #1 Map DTO -> Entity
             TEntity entity = Mapper.Map<TEntity>(dto);
             return EntityRepository.CreateAsync(entity);
         }

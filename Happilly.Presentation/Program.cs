@@ -29,7 +29,7 @@ builder.Services.AddSingleton<IFactory<HappillyDbContext>, HappillyDatabaseFacto
 builder.Services.AddTransient<HappillyDbContext>(p => p.GetService<IFactory<HappillyDbContext>>().Create());
 
 // Adds the repository to the service collection
-builder.Services.AddTransient<IRepository<Medicine>, Repository<Medicine, HappillyDbContext>>();
+builder.Services.AddTransient<IRepository<Medicine>, MedicineRepository>(); // MedicineRepository
 
 // Registers the MedicineService to the service collection.
 builder.Services.AddTransient<IService<MedicineDto>, MedicineService>();

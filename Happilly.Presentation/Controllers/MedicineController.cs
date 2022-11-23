@@ -38,10 +38,40 @@ namespace Happilly.Presentation.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<object> CreateMedicineAsync(MedicineDto medicine)
+        public async Task<ActionReturnObject> CreateMedicineAsync(MedicineDto medicine)
         {
             bool success = await _medicineService.CreateAsync(medicine);
-            return new { Success = success };
+            return new ActionReturnObject(success);
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async void DeleteMedicineAsync(Guid id)
+        {
+
+        }
+    }
+
+    public class ActionReturnObject
+    {
+        public bool Success { get; }
+
+        public ActionReturnObject(bool success)
+        {
+            Success = success;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is ActionReturnObject other &&
+                   Success == other.Success;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Success);
         }
     }
 }
