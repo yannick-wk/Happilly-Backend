@@ -37,11 +37,13 @@ namespace Happilly.Tests
                 dbConfig.DbProvider = "";
             });
 
+            //Logging needed for the DBFactory in case something is wrong.
             serviceCollection.AddLogging(p => p.AddConsole());
 
             //Get assembly where the mapping profiles are stored (Presentation layer/Mapping/Profiles)
             serviceCollection.AddAutoMapper(Assembly.GetAssembly(typeof(MedicineController)));
 
+            //An instance of the database to use during a test from the DBFactory for in-memory usage.
             serviceCollection.AddSingleton<IFactory<HappillyDbContext>, HappillyDatabaseFactory>();
             serviceCollection.AddSingleton<HappillyDbContext>(p =>
             {
@@ -49,8 +51,12 @@ namespace Happilly.Tests
                 happillyDbContext.Database.EnsureCreated();
                 return happillyDbContext;
             });
+
+            //Repository/Service can be Transient because they are just Logic. (One time use)
             serviceCollection.AddTransient<IRepository<Medicine>, MedicineRepository>();
             serviceCollection.AddTransient<IService<MedicineDto>, MedicineService>();
+
+            //Build the service provider.
             return serviceCollection.BuildServiceProvider();
         }
 
