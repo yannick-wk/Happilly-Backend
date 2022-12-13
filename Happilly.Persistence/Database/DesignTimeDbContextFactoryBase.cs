@@ -76,12 +76,16 @@ namespace Happilly.Persistence.Database
                 case "mssql":
                     optionsBuilder.UseSqlServer(connectionString);
                     break;
+
+                case "psql":
+                    optionsBuilder.UseNpgsql(connectionString, options => options.EnableRetryOnFailure());
+                    break;
                 //case "mysql":
                 //    optionsBuilder.UseMySql(connectionString);
                 //    break;
                 //case "sqlite":
                 //    optionsBuilder.UseSqlite(connectionString);
-                    //break;
+                //break;
                 default:
                     optionsBuilder.UseInMemoryDatabase(Guid.NewGuid().ToString());
                     break;

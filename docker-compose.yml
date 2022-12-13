@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  happillyapi:
+    build:
+      context: .
+      dockerfile: happilly-api.DockerFile
+    depends_on:
+      - "happillydb"
+    ports:
+      - "5002:80"
+    networks:
+      - happilly-network
+    image: yannickts/happilly-presentation:latest
+    restart: always
+  happillydb:
+    image: "postgres"
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres 
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - happilly-network
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  happilly-network:
+    driver: bridge
