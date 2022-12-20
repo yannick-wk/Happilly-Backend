@@ -10,6 +10,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 #region MAPPING LAYER
 // The AutoMapper for Entities to DTOs and vice versa.
 // Medicine -> MedicineDto (automatic mapping of entities and data transfer objects)
@@ -48,11 +49,11 @@ var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 app.UseHttpsRedirection();
 

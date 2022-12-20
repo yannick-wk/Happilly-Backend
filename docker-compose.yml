@@ -3,11 +3,12 @@ services:
   happillyapi:
     build:
       context: .
-      dockerfile: happilly-api.DockerFile
+      dockerfile: Happilly.Presentation/Dockerfile
     depends_on:
       - "happillydb"
     ports:
       - "5002:80"
+      - "5003:443"
     networks:
       - happilly-network
     image: yannickts/happilly-presentation:latest
