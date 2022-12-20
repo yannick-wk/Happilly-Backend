@@ -44,14 +44,14 @@ namespace Happilly.Presentation.Controllers
             return new ActionReturnObject(success);
         }
 
-        [HttpDelete]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async void DeleteMedicineAsync(Guid id)
-        {
+        //[HttpDelete]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //public async void DeleteMedicineAsync(Guid id)
+        //{
 
-        }
+        //}
     }
 
     public class ActionReturnObject
