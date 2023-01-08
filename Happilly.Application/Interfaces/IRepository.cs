@@ -30,6 +30,8 @@ namespace Happilly.Application.Interfaces
         Task<IEnumerable<TEntity>> GetAllAsync();
 
         Task<bool> CreateAsync(TEntity entity);
+        Task<bool> DeleteAsync(Guid id);
+        Task<bool> UpdateAsync(TEntity entity);
 
         /// <summary>
         /// Gets pagination asynchronously.

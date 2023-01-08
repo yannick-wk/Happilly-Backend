@@ -7,6 +7,6 @@ namespace Happilly.Application.Dtos
         public DateTime Time { get; set; }
         public DateTime Registered { get; set; }
         public int UserId { get; set; }
-        public MedicineDto Medicine { get; set; }
+        public List<MedicineDto> Medicines { get; set; }
     }
 }

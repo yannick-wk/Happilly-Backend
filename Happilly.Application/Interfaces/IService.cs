@@ -27,5 +27,9 @@ namespace Happilly.Application.Interfaces
         Task<IEnumerable<TDto>> GetPaginationAsync(int pageNumber, int pageSize);
 
         Task<bool> CreateAsync(TDto dto);
+
+        Task<bool> DeleteAsync(Guid id);
+
+        Task<bool> UpdateAsync(TDto dto);
     }
 }

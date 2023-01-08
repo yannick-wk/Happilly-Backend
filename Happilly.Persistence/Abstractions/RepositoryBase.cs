@@ -99,5 +99,53 @@ namespace Happilly.Persistence.Abstractions
 
             return changes > 0; 
         }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            using EntityLoadLock.Releaser loadLock = EntityLoadLock.Shared.Lock();
+            TEntity obj = DbContext.Set<TEntity>().Find(id);
+            if (obj == null) 
+            { 
+                return false; 
+            }
+
+            DbContext.Set<TEntity>().Remove(obj);
+
+            int changes = 0;
+            try
+            {
+                changes = await DbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+            }
+
+            return changes > 0;
+        }
+
+        public async Task<bool> UpdateAsync(TEntity entity)
+        {
+            using EntityLoadLock.Releaser loadLock = EntityLoadLock.Shared.Lock();
+        
+            TEntity obj = DbContext.Set<TEntity>().Find(entity.Id);
+            if (obj == null)
+            {
+                return false;
+            }
+            DbContext.Entry(obj).CurrentValues.SetValues(entity);
+
+            int changes = 0;
+            try
+            {
+                changes = await DbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+            }
+
+            return changes > 0;
+        }
     }
 }

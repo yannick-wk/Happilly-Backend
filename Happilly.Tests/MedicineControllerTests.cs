@@ -6,6 +6,7 @@ using Happilly.Domain.Entities;
 using Happilly.Persistence.Database;
 using Happilly.Persistence.Repositories;
 using Happilly.Presentation.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -69,7 +70,7 @@ namespace Happilly.Tests
         }
 
         [TestMethod]
-        public async Task CreateMedicineTest()
+        public async Task CreateMedicineParacetamolTest()
         {
             //Arrange
             MedicineDto medicineDto = new MedicineDto()
@@ -86,6 +87,77 @@ namespace Happilly.Tests
 
             //Assert
             Assert.IsTrue(returnObject.Success);
+        }
+
+        [TestMethod]
+        public async Task GetAllMedicineShouldReturnEmptyTest()
+        {
+            //Arrange
+            
+            //Act
+            IEnumerable<MedicineDto> returnObject = await MedicineController.GetAllAsync();
+            //Assert
+            Assert.IsFalse(returnObject.Any());
+        }
+
+        [TestMethod]
+        public async Task GetAllMedicineShouldReturnParacetemolTest()
+        {
+            //Arrange
+            MedicineDto medicineDto = new MedicineDto()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Paracetamol",
+                Description = "Pain killer",
+                Group = 2,
+                Stock = 12
+            };
+            await MedicineController.CreateMedicineAsync(medicineDto);
+            //Act
+            IEnumerable<MedicineDto> returnObject = await MedicineController.GetAllAsync();
+            //Assert
+            MedicineDto medicine = returnObject.First();
+            Assert.AreEqual(medicine.Name, medicineDto.Name);
+        }
+
+        [TestMethod]
+        public async Task DeleteMedicineShouldDeleteParacetamolTest()
+        {
+            //Arrange
+            MedicineDto medicineDto = new MedicineDto()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Paracetamol",
+                Description = "Pain killer",
+                Group = 2,
+                Stock = 12
+            };
+            await MedicineController.CreateMedicineAsync(medicineDto);
+            //Act
+            IActionResult returnObject = await MedicineController.DeleteMedicineAsync(medicineDto.Id);
+            //Assert
+            Assert.IsTrue(returnObject is OkResult);
+        }
+
+        [TestMethod]
+        public async Task UpdateMedicineShouldUpdateParacetamolToIbuprofenTest()
+        {
+            //Arrange
+            MedicineDto medicineDto = new MedicineDto()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Paracetamol",
+                Description = "Pain killer",
+                Group = 2,
+                Stock = 12
+            };
+            await MedicineController.CreateMedicineAsync(medicineDto);
+            //Act
+            medicineDto.Name = "Ibuprofen";
+            IActionResult returnObject = await MedicineController.UpdateMedicineAsync(medicineDto);
+            medicineDto = await MedicineController.GetByIdAsync(medicineDto.Id);
+            //Assert
+            Assert.AreEqual(medicineDto.Name, "Ibuprofen");
         }
     }
 }

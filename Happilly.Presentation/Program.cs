@@ -35,6 +35,12 @@ builder.Services.AddTransient<IRepository<Medicine>, MedicineRepository>(); // M
 // Registers the MedicineService to the service collection.
 builder.Services.AddTransient<IService<MedicineDto>, MedicineService>();
 
+// Adds the repository to the service collection
+builder.Services.AddTransient<IRepository<Reminder>, ReminderRepository>(); // ReminderRepository
+
+// Registers the ReminderService to the service collection.
+builder.Services.AddTransient<IService<ReminderDto>, ReminderService>();
+
 // Verifies the database connection upon start-up!
 builder.Services.VerifyDatabaseConnection<HappillyDbContext>();
 #endregion MAPPING LAYER

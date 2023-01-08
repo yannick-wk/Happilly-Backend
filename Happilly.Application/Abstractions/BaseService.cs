@@ -31,6 +31,16 @@ namespace Happilly.Application.Abstractions
             return EntityRepository.CreateAsync(entity);
         }
 
+        public virtual Task<bool> DeleteAsync(Guid id)
+        {
+            return EntityRepository.DeleteAsync(id);
+        }
+        public virtual Task<bool> UpdateAsync(TDto dto)
+        {
+            TEntity entity = Mapper.Map<TEntity>(dto);
+            return EntityRepository.UpdateAsync(entity);
+        }
+
         /// <inheritdoc cref="IService{TEntity}.FindSingleOrDefaultAsync(Guid)"/>
         public virtual Task<TDto> FindSingleOrDefaultAsync(Guid id)
         {
