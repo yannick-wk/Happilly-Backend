@@ -43,7 +43,7 @@ namespace Happilly.Presentation.Controllers
             return new ActionReturnObject(success);
         }
 
-        [HttpDelete]
+        [HttpDelete, Route("{id:Guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -64,16 +64,16 @@ namespace Happilly.Presentation.Controllers
             return success ? Ok() : NotFound();
         }
 
-        [HttpDelete]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteReminderMedicineAsync(Guid id)
-        {
-            bool success = await _reminderService.DeleteAsync(id);
-            return success ? Ok() : NotFound();
-        }
+        //[HttpDelete]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //public async Task<IActionResult> DeleteReminderMedicineAsync(Guid id)
+        //{
+        //    bool success = await _reminderService.DeleteAsync(id);
+        //    return success ? Ok() : NotFound();
+        //}
 
     }
 }
